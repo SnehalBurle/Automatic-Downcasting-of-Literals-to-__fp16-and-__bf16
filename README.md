@@ -20,56 +20,41 @@ Python 3.x for runner and script tools
 C++17 compatible compiler
 Web browser for viewing index.html
 
-🛠️ Building the Plugin
-bash
-Copy
-Edit
-clang++ -shared -fPIC -o FloatDowncastChecker.so \
+## Building the Plugin
+<pre>clang++ -shared -fPIC -o FloatDowncastChecker.so \
   -std=c++17 \
   -I$(llvm-config --includedir) \
   -fno-rtti \
   FloatDowncastChecker.cpp \
-  $(llvm-config --cxxflags --ldflags --libs --system-libs)
-✅ If using LLVM 18, make sure llvm-config is in your PATH.
+  $(llvm-config --cxxflags --ldflags --libs --system-libs)</pre>
+If using LLVM 18, make sure llvm-config is in your PATH.
 
-🧪 Running the Tool
-1. Prepare Your Source
-Your input source file should be named:
+## Running the Tool
+  1. Prepare Your Source
 
-text
-Copy
-Edit
-test.cpp
-2. Run with Clang Plugin
-For __fp16:
-bash
-Copy
-Edit
-clang++ -fsyntax-only \
-  -Xclang -load -Xclang ./FloatDowncastChecker.so \
-  -Xclang -plugin -Xclang float-downcast \
-  -Xclang -plugin-arg-float-downcast -Xclang -threshold=0.001 \
-  -Xclang -plugin-arg-float-downcast -Xclang -mode=fp16 \
-  test.cpp
-For __bf16:
-bash
-Copy
-Edit
-clang++ -fsyntax-only \
-  -Xclang -load -Xclang ./FloatDowncastChecker.so \
-  -Xclang -plugin -Xclang float-downcast \
-  -Xclang -plugin-arg-float-downcast -Xclang -threshold=0.001 \
-  -Xclang -plugin-arg-float-downcast -Xclang -mode=bf16 \
-  test.cpp
-3. Run the Analysis and Downcast Script
-bash
-Copy
-Edit
-python3 benchmark.py
-This script will:
+    Your input source file should be named : test.cpp
 
-Analyze downcasting accuracy
+  2. Run with Clang Plugin
 
-Time execution of original and modified binaries
+  For __fp16:
 
-Output modified.cpp, run_test.json, and float_map.json
+    <pre>clang++ -fsyntax-only \
+    -Xclang -load -Xclang ./FloatDowncastChecker.so \
+    -Xclang -plugin -Xclang float-downcast \
+    -Xclang -plugin-arg-float-downcast -Xclang -threshold=0.001 \
+    -Xclang -plugin-arg-float-downcast -Xclang -mode=fp16 \
+    test.cpp</pre>
+    
+  For __bf16:
+    
+    <pre>clang++ -fsyntax-only \
+      -Xclang -load -Xclang ./FloatDowncastChecker.so \
+      -Xclang -plugin -Xclang float-downcast \
+      -Xclang -plugin-arg-float-downcast -Xclang -threshold=0.001 \
+      -Xclang -plugin-arg-float-downcast -Xclang -mode=bf16 \
+      test.cpp</pre>
+  
+4. Run the Analysis and Downcast Script
+
+  <pre>python3 benchmark.py</pre>
+  This script will analyze downcasting accuracy, time execution of original and modified binaries.
