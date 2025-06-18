@@ -30,12 +30,6 @@ Web browser for viewing index.html
 If using LLVM 18, make sure llvm-config is in your PATH.
 
 ## Running the Tool
-  1. Prepare Your Source
-
-   Your input source file should be named : test.cpp
-
-  2. Run with Clang Plugin
-
   For __fp16:
 
     clang++ -fsyntax-only \
@@ -54,7 +48,7 @@ If using LLVM 18, make sure llvm-config is in your PATH.
     -Xclang -plugin-arg-float-downcast -Xclang -mode=bf16 \
     test.cpp
   
-4. Run the Analysis and Downcast Script
+## Run the Analysis and Downcast Script
 
   <pre>python3 benchmark.py</pre>
   This script will analyze downcasting accuracy, time execution of original and modified binaries.
