@@ -32,27 +32,27 @@ If using LLVM 18, make sure llvm-config is in your PATH.
 ## Running the Tool
   1. Prepare Your Source
 
-    Your input source file should be named : test.cpp
+   Your input source file should be named : test.cpp
 
   2. Run with Clang Plugin
 
   For __fp16:
 
-    <pre>clang++ -fsyntax-only \
+    clang++ -fsyntax-only \
     -Xclang -load -Xclang ./FloatDowncastChecker.so \
     -Xclang -plugin -Xclang float-downcast \
     -Xclang -plugin-arg-float-downcast -Xclang -threshold=0.001 \
     -Xclang -plugin-arg-float-downcast -Xclang -mode=fp16 \
-    test.cpp</pre>
+    test.cpp
     
   For __bf16:
     
-    <pre>clang++ -fsyntax-only \
-      -Xclang -load -Xclang ./FloatDowncastChecker.so \
-      -Xclang -plugin -Xclang float-downcast \
-      -Xclang -plugin-arg-float-downcast -Xclang -threshold=0.001 \
-      -Xclang -plugin-arg-float-downcast -Xclang -mode=bf16 \
-      test.cpp</pre>
+    clang++ -fsyntax-only \
+    -Xclang -load -Xclang ./FloatDowncastChecker.so \
+    -Xclang -plugin -Xclang float-downcast \
+    -Xclang -plugin-arg-float-downcast -Xclang -threshold=0.001 \
+    -Xclang -plugin-arg-float-downcast -Xclang -mode=bf16 \
+    test.cpp
   
 4. Run the Analysis and Downcast Script
 
